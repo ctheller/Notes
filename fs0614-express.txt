@@ -1,0 +1,209 @@
+ Node and Express: Network Requests!
+
+Node has built into it a way to deal with network requests. There is nothing that Express does
+that you COULDNT do just with node, it is just a set of tools that makes it easier.
+
+Protocols are systems by which entities agree to communicate. 
+
+<TCP>
+
+TCP: the protocol on which most of what we are interested in rests.
+
+Has to do with the actual translation of the bits from computer to computer.
+
+HTTP: is the rules for "writing your letter". Like etiquette for writing an RSPV.
+	-Idea of implementation of communication.
+	-HyperText transmission protocol.
+
+CLIENT --------> "the internet": TCP/IP -------> SERVER (a program listening for requests. your computer. at google. anything that is running a program. cannot initiate transmission to client.)
+(makes request)--(the pipe through which we send)--(makes response)
+
+Protocol:
+*rules
+*specs, not actual implementation
+*often used for communication
+
+HTTP request: just a message (a string of text) with a specific format. One long line of characters (that can contain newlines).
+
+Parts of an HTTP Request:
+
+<URI>
+example: "/docs/index.html"
+*a resource that points the body of the request to the proper place within the server.
+*NOT A FILEPATH. Maaay, end up that way, but could just as easily be a label for something that the client is interested in.
+*A URI names a specific resource. 
+
+<Verb>
+example: "POST"(which would be like "hey server, make this resource")
+*Tells the server what we want to do with the resource (denoted by the URI).
+(GET, POST, PUT, DELETE...all common verbs).
+
+<Headers>
+example: "Host:", "Accept:", "User-Agent:"
+*gives additional information about the request, and allowable responses.
+
+<Body>
+*the actual content of the request.
+
+Parts of an HTTP Response:
+
+<Status>
+200: OK
+201: Created
+300's: (things are OK, But something about this resource has changed and you should update your info)
+304: Cached (not sending you a body...use the one you've got. Nothing's changed.)
+400's: hey client, you messed up. Fix your mistake. 
+400: bad request
+401: unauthorized
+404: not found
+500: server error. ("we messed up and we know it")
+
+<Headers>
+
+<Body>
+
+HTTP the communication protocol is stateless. Every request is considered without any history or memory. It doesn't have a context for past requests. 
+
+**Express**
+A node library for request handling 
+
+
+
+
+"npm init": helps you make a package.json quickly
+
+Setting up your program:
+-npm init
+-make index.js file
+in your index.js file:
+
+var Express = require('express');
+
+var app = new Express();
+
+
+//any function we pass to app.use we call a "Middleware Function"
+//"when a request comes in, pass it into this function"
+app.use(function(req, res, next){
+	console.log("I heard a request"!);
+	res.set("Content-Type", "text/plain"); //we can set headers individually. (for example, this makes it interpreted as plaintext vs the default which is HTML.)
+	res.send("Here is some plain test...or is it?"); //could also be sending html in here "<h1>Hey!</h1><p>Paragraph.</p>";
+	res.end(); //must say this for request ever to get sent back.
+});
+
+//Start listening for HTTP requests. Always checking the port. If anything comes in, it places the app.use function on the callstack.
+//port 3000 just means the localhost.
+app.listen(3000);
+
+(in node in the terminal we can try running this by running "curl http://localhost:3000")
+if I were to "curl http://localhost:3000/kittens", i've asked for the URI kittens. The req.path = "/kittens".
+
+if the function included: res.send("Kittens!") 
+
+
+Very common for bottom function of your express app to be error function:
+
+app.use(function (err, req, res, next)){		//The ONLY time this function gets called is if we have an error (checks to make sure we have all 4 args).
+	console.error("Error:", err);
+});
+
+
+An express app is just a series of middleware functions. 
+
+
+
+Next():
+
+in express, you have to EXPLICITLY tell in the first middleware function, when it is safe to go to the next one by calling next();
+
+These middleware functions execute in order top to bottom (except of course for errors since they take a different number of params).
+
+Usually not going to do anything within the same function after calling next.
+
+This is to force it into synchronicity. (we can use next() within a callback to an asynchronous function not to fuck up the order of middleware exectutions)
+
+
+
+Routing:
+
+app.get("/kittens", function(req,res,next){
+	console.log('the client wants to GET kittens');
+	res.send('meow!');
+});
+
+app.get("/puppies", function(req,res,next){
+	console.log('the client wants to GET kittens');
+	res.send('woof!');
+});
+
+Getting a request body:
+
+npm install body-parser --save;
+var bodyParser = require('body-parser');
+var theActualBosyParser = bodyParser.json();
+
+app.use(theActualBodyParser); //this is going to create req.body as an object that's going to have the JSON object on it. 
+
+
+Other good knowledge:
+
+function foo (a,b,c){};
+console.log(foo.length) // 3  (.length of a fn just returns the number of formal parameters.)
+
+JSON is stringified javascript. 
+res.JSON({name: "Omri", height:185}); just sends this object as a string. 
+
+Wouldn't set a global variable (set it on req like req.foo), so that it's ONLY declared for a given response cycle, and not for every request that comes in. 
+
+if inside an asynchronous callback function, call next as next(err) so if error is truthy (exists) it'll jump to the error middleware function.
+
+Floofy and Kilroy;
+
+### client
+- something that makes (HTTP) requests
+
+### server
+- something that responds to (HTTP) requests
+
+### request
+- a formatted message sent over the network
+
+#### HTTP verb
+- an action
+
+#### route
+- NOT filepaths
+- locator
+- noun
+
+### response
+- a server's reply to a request (formatted message)
+- headers, body, status
+
+### request-response cycle
+- always starts with client request
+- always ends with one server response
+
+### express middleware
+- a function that handles responding to requests somehow
+- of the form `function (req, res, next) {}`
+
+### router
+- used for deciding which handlers to use
+- object that contains multiple middlewares
+- a middleware module/layer
+
+### request query string
+- a way to pass data from client to server
+- /example?x=123&this=that req.query = {x: 123, this: 'that'}
+
+### request body
+- it's the body of the HTTP request
+- in express, accessible via request.body if you use body parsing middleware
+
+### request params
+- variable within the url
+- app.get('/:prefix/:name:lastName'); /thing/foo req.params = {name: 'foo', prefix: 'thing'}
+
+
+

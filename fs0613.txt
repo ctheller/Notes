@@ -1,0 +1,110 @@
+Node.js is a tool for writing Javascript on a machine. Can interact with hardware. 
+
+Has modules/packages. 
+
+1. runs on a machine (not a browser). Allows us to use Javascript in order to write more things with power and accessibility to the computer.
+2. NPM. HUGE package manager. 
+3. Asynchronous. 
+
+
+<Defn of Node>
+
+* a program (written in C, C++, and JS)
+* it can interpret JS and run it via the Chrome V8 engine (C++). The underlying code of the Chrome browser. 
+* Proviedes APIs (Application Programming Interfaces)
+* Node LETS YOU RUN JAVASCRIPT OUTSIDE A BROWSER ON A COMPUTER AND INTERACT WITH STUFF ON THAT COMPUTER. Also lets you use terminal commands. you can do ANYTHING on a computer using node.
+* why? because it let's us use JS (a language that we know and love) in a powerful machine-based context. 
+
+
+<Program vs Process>
+
+*Program is just data. Ready to run as process. Doesn't actually do anything. it's just a file that's interpreted. (Program is the Recipe)'.
+
+*Process is the cooking. Actual execution. Interactive, results, memory allocation, can be started/stopped (there usually are multiple processes per program.)
+
+*CPU is the chef. (V8 converts JS into instructions for the CPU). Runs with a certain language in mind. "machine code" (aka 'assembly').
+
+<Threads>
+
+*A sequnce of steps that the CPU can execute.
+*They share memory. 
+*The OS jumps between these threads.
+
+--This is how node does multiple things Asynchronously. The processes run on different threads. 
+
+If your computer has multiple cores, more than one thread can ACTUALLY simultaneously run (in parallel), otherwise the computer is really just jumping back and forth rapidly. 
+
+(Node is actually a process that runs on the computer).
+--The way node works, that process is actually going to end if there is nothing else for it to do. 
+
+<Node Dev Tool Examples>
+
+Synchronous Stuff:
+	
+	¬ console (same name, but a wrapper for process.stdout);
+	¬ global (no window object). We have an actual object called global, which works like window. 
+	¬ module (we will get to this)
+
+Asynchronous Stuff: 
+
+	¬setTimeout and setInterval (just like in browser);
+	¬http.request (like XMLhttprequest in the browser);
+
+<Node Module system>
+
+In browser, we separate nodes by using script tags that run sequentially. 
+
+In node, we have "require" & "module exports".
+
+Module is a variable that every file gets for itself (with an exports property).
+
+Node programs always start with one file, and one file only. (that is why we connect the files with require and export.)
+
+note: when using "require", including ".js" is redundant, because it always assumes it is going to be a JS file. 
+If you "require" a directory, it is going to look for an "index.js" file in there and return that. 
+
+<NPM>
+
+A package repository for MILLIONS of different modules that other JS programmers have written for our access in a centralized place.
+When you install something in NPM, it makes an HTTP request and goes to retrieve the content of these files. 
+
+Package.json is a file that every single one of your projects will have. You can generate that by running "npm init".
+	-it describes a node program in order to be interacted with npm. 
+for example:
+	"npm install --save chalk" will install the package "chalk" and add it to the list of dependencies in my package.json file. 
+	now, if someone gets your files (inlcuding your package json) and does "npm install", it is going to install all the necessary packages (and the packages that THOSE packages depend on).
+	When working with chalk now, we can just do "require('chalk'), and it is going to go find it in the node_modules directory. 
+
+<built-in modules in node> 
+	*they do not need to be installed by npm
+	*but they still need to be brought in. For example: var fs = require('fs');
+	*can find documentation on Nodejs.org
+
+	<fs>
+	readfile method. takes 2 args. 
+		-1st is the path to the file you want to read.
+		-2nd is callback function.
+
+	fs.readfile('./package.json', function(possibleErr, contentsOfFile){
+		//This function that we provide is going to be what happens when the file is finished reading.
+		if (possibleErr){
+			console.error(possibleErr);
+		} else {
+			console.log(contentsOfFile.toString());
+		}
+	});
+
+	* Node does not pause your program for this kind of call. It runs it in the background (in another thread). It does this with all kinds of operations (ex: reading files, making http requests, terminal commands)
+	
+	<http> (module that allows you to build servers)
+	var http = require('http');
+	var server = http.createServer();
+	server.on('request', function(req, res){
+	})
+	server.listen(1337);
+
+	**This power of doing things in parallel through asynchronicity is why Node is attractive!!
+
+	
+
+

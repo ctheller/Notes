@@ -1,0 +1,33 @@
+Callbacks:
+
+	Blocking:
+		-Predicates:
+			eg array.filter
+		-Comparators:
+			eg array.sort
+		-Iterators:
+			eg array.map
+	Non-Blocking:
+		(think control flow. For a-sync):
+		-event handlers (like button.on)
+		-Middleware
+		-Vanilla Async Callback
+			-you tell something to happen asynchronously and it finishes at some point and has one result. 
+			-here's where PROMISES come in.
+
+__________________________________________
+
+--PROMISE--
+*represents the eventual result of the asynchronous operation.
+
+Vanilla Async:
+	fs.readFile('file.txt', callback)
+
+Promise version: 
+	fs.readFileAsync('file.txt').then(......)   <---- returns a promise and deal with result in the callback.
+
+Promise advantages:
+	*portable
+	*multiple handlers
+	*unified error handling (only one .then() in a chain needs an error handler if you're attaching then().then().then()).
+	*Reads somewhat like English

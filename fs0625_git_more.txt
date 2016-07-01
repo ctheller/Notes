@@ -1,0 +1,29 @@
+GIT!
+
+Working Directory/Working Copy: your project's files and folders.
+.git directory
+
+git add:
+	* step 1: creates a new blob (binary large object) object in the objects directory of the .git folder 
+		This object is a directory with a file in it:
+			1. name of the directory.
+			2. 
+
+		"git cat-file -p" will cat out the contents of our file. 
+
+	* step 2: creates an entry for the file in the index.
+		(can view by doing "git ls-files -s").
+
+git commit:
+	1. creates a tree based on the index which represents your project in its current state.
+	(another git object)
+	2. Creates a commit object (contains a tree, some metadata, and your commit message).
+	3. Points the current branch (HEAD file) to your commit object.
+
+When you commit again, the git object will have a parent.
+
+git branch:
+	only one step: creates a hash a HEAD.
+
+git checkout{branchName}:
+	fuck this lecture. too fast. Look at the damn slides.

@@ -1,0 +1,100 @@
+Selectors:
+
+tag  input
+class   .btn
+id 		#upload
+attribute selectors : for example, "Select input that are type='text'" input [type="file"]
+pseudo-element ::after (this declaration adds an elem to the page)
+pseudo-class :hover (when an event happens) 
+* <--- everything
+
+
+
+Combinators:
+
+descendent			(whitespace)
+child				>
+net sibling			+	
+later sibling		~   <-- all later siblings
+
+
+Beware!!
+
+tag.class 		element with BOTH tag and .class
+tag .class  	element with .class whose ANCESTOR matches tag
+tag,.class 		elements with EITHER tag OR .class
+tag+.class  	elements with .class whose left SIBLING matches tag
+
+
+CSS: stands for Cascading StyleSheets
+
+
+
+Declaration Specificity:
+
+!important		>		inline styling		>		id		>		class 		>		tag			> 		order
+
+-class includes pseudo-class
+-tag includes pseudo-element
+-combinators don't affect!
+
+
+
+Browser Compatability:
+
+*CSS "resets"
+*CSS normalization
+
+
+Box Sizing:
+
+*DEFAULTS to content-box, BUT we could change it to padding-box or border-box. 
+
+
+
+Block-Level:
+
+*by default they try to clear their own line
+*default width is 100% of parent
+*default height is expand to fit all children
+*can have margins on all sides
+*can set height and width
+
+
+Inline-Level:
+
+*Flows with content (doesn't clear line)
+*Ignores top and bottom margins
+*height and width fit content
+*cannot set height or width
+
+
+Inline-Block:
+
+*flows with content (does NOT try to clear own line)
+*default width and heights will expand to fit all children
+*Can have margins on all sides
+*Can set height and width
+*example: image
+
+
+SCSS:
+-nesting
+-variables
+-loops
+-functions
+-modules
+
+
+
+Responsive Design:
+*A website is fully functional for all screen sizes, resolutions and orientations.
+*Born of necessity
+*Cater to user's environment, don't force a specific device platform.
+
+		Add Media Queries:
+			-lets us set CSS rules that only apply at specific screen sizes. 
+			How to use:
+			-make defaults for larger screens, and specify for mobile.
+			-make things flexible and fluid
+			-add responsive media-query tags in a separate CSS file.

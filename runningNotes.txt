@@ -1,0 +1,68 @@
+Error Handling Middleware:
+
+* put at the BOTTOM of app.js
+* MUST have 4 args (err, req, res, next);
+* Looks like this:
+
+	app.use(function(err,req,res,next){
+		console.error(err);
+		res.status(500).send(err.message);
+	});
+
+* We can get to this ANYWHERE in our program's promise chains now by writing ".catch(next)";
+
+_________________________________________________________________
+
+* A left-hand assignment express evaluates to the value that's being assigned.
+
+You could do:
+var B;
+var A = B = 3;
+
+_________________________________________________________________
+
+GetterMethods:
+
+* in sequelize when you declare a getter method, you're assigning a function to a property so you can call that property without () and it will return something. (.length is similar)
+
+_________________________________________________________________
+Bluebird '.spread':
+
+Spread works like .then but it takes an array and spreads the result into separate arguments in the cb function.
+
+_________________________________________________________________
+When you return from a function, that return still references the object that was returned (if it was an object or function).
+
+var A = function(){
+	return A.value;
+};
+
+A.value = [4];
+
+var B = A();
+
+A.value.push(5);
+
+console.log(B);
+
+_________________________________________________________________
+.setDataValue():
+
+*way for a setterFunction on a Sequalize property to set without calling the setter function again (if you just used "=" assignment, the setterFunction would be called again.)
+
+_________________________________________________________________
+Box Model: Every element on a webpage is A RECTANGLE.
+
+_________________________________________________________________
+Important Distinction about dot notation and "this".
+
+When you INVOKE a function with dot notation, the "this" is the object on which it's invoked:
+
+myObj.someFunction()  <---- "this" inside the function refers to myObj.
+
+HOWEVER:
+
+If you're just passing myObj.someFunction around by reference (ie: as a callback function), the this is NOT bound to myObj because you're just passing around the function. If you want to reference the original object, you must bind "this" to it when it's passed.
+
+
+

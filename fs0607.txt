@@ -1,0 +1,37 @@
+ADT = abstract datatype
+
+string are immutable. all primitives are. 
+
+Objects are mutable. 
+
+str = "hello";
+str[0] = "y";
+
+str still equals "hello", not "yello";
+
+x = 3;
+y = x;
+x = 4;
+//y still equals 3
+//but if these were objects, y would change with x. Because with objects you're passing references, not values.
+
+> x = true;
+true
+> y = x;
+true
+> x = false;
+false
+> y
+true
+
+> x = ["blue","bell"]
+[ 'blue', 'bell' ]
+> y = x;
+[ 'blue', 'bell' ]
+> x.pop()
+'bell'
+> y
+[ 'blue' ]
+>
+
+In a linked list, the "handle" refers to the head and/or tail.

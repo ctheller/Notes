@@ -1,0 +1,41 @@
+HTTP Requests In The Browser:
+
+1. Browser Nav
+
+2. Submitting Forms (POST/PUT)
+
+(the above...browser navigates to a new page....AJAX is different).
+
+AJAX: Makes an HTTP request in the background to some route on the server. Server responds with just info (typically in JSON format). NOT html, just info.
+-"Asynchronous Javascript And XML"
+More often "AJAJ" sort of... use JSON over XML. 
+
+
+EXAMPLE #1:
+
+$(document).ready(function(){
+	
+	$.ajax({
+		method: 'GET'   <-- default
+		url: '/puppies'
+	})
+	.then(function(puppies){					<-- asynchronous
+		puppies.forEach(function(puppy){
+			$("#puppies").append("<li>"+puppy.name+"</li>");    <-- to make this performant, we'd save $('#puppies') to a variable before.
+		});
+	})
+	
+})
+
+Sidenote: <iframe> is an html element that's like a window into another website.
+
+Data Serializations Formats:
+
+	-Ex: JSON, XML, YAML
+
+	-How real data is conveyed using text in a human-readable format.
+
+	-Used for delivery of data over limited transports, like HTTP.
+
+*The network tab in Developer Tools is your best friend*
+

@@ -1,0 +1,57 @@
+MongoDB:
+_document store
+_Stores JSON docs rather than tabular data
+_Schema-less
+_easy to deploy and scale
+
+BUT has some flaws:
+_not great at scale
+_not ACID Compliant
+
+ACID:
+Atomicity- If one leak springs, the whole ship needs to sink (can't have messy queries. If there's a problem, ditch it)
+Consistency- ALL db writes play by the rules
+Isolation- if multiple agents want to access the same data, they have to wait in line
+Durability- All changes stay after they are written.
+
+_mongoDB not being ACID compliant obviously makes it bad for large banks and other corporations for example.
+
+
+___________________________________
+
+Designing a Schema:
+
+Analysis 
+	>what to output?
+	>what data?
+Conceptual Design
+	>entities and their relationships
+Logical Design
+	>What Data Structures?
+	>relationships?
+Physical Design
+	>actually CREATING
+
+Entities:
+	Nouns in real world
+	Entities == JS Classes
+	Set of things of same type
+Attributes:
+	Properties of the Entity
+Identifiers:
+	SSN, ISBN, VIN for example
+	ID numbers
+	(we don't just use content because not unique always and even if so, expensive to compare)
+Relationships:
+	Associations between entities
+	example: a User write Tweets
+	Users PURCHASE books
+	(use a verb)
+	Degree of relationship:
+		how many entities? 1 to 1? Binary?
+	Cardinality: 
+		"a user can write many tweets, but a tweet can only belong to one user"
+		"A FB photo belongs to one user but can tag many people"
+		This describes an ORM - Object Relational Mapper
+		
+

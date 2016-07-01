@@ -1,0 +1,73 @@
+var Sequalize = require('sequalize');
+
+var db = new Sequalize(
+	'postgres://localhost:5432/1606sequalize'
+);
+
+//going to use db to maintain access to the database, and start creating models (tables).
+
+var Product = db.define('product', {
+	name: {
+		type: Sequalize.STRING
+	},
+	price: {
+		type: Sequalize.INTEGER
+	}
+});  //arguments to define (name of model, obj to define schema, (third optional))
+
+var tableSyncing = Product.sync({ force:true});  //this is going to figure out the SQL necessary to create a table in our db based on the schema. This expression returns a promise.
+			//FORCE is a good tool for DEVO mode, bc it drops the whole table before recreating it to update the structure of your table. HOWEVER THIS WOULD BE 
+			//CATASTROPHICALLY BAD TO HAVE IN YOUR FINAL VERSION!!!!!!
+			//Could also say db.sync for multiple models.
+
+
+tableSyncing.then(function(){
+	var blender = Product.build({   	//builds the instance in JS (doesn't yet tell the db to persist it)
+		name: "Blendermatic 5000X",
+		price: 1000
+	});
+
+	blender.save() //this operation interacts with the db and returns a promise.
+
+
+	Product.findAll({
+		where: {
+			name: 'something',
+			price: {
+				$gt: 900  //*greater than
+			}
+		}
+	});
+
+}).catch(function(err){
+	console.error(err);
+})
+
+
+var User = db.define('user', {
+	email: {
+		type: Sequalize.STRING,
+		validate: {
+			isEmail: true		//wouldn't let you save to the table unless it was an email address format!
+		}
+	}
+})
+
+Product.belongsTo(User, {as: 'seller'}); //new relationship. Puts userId in the products table as "sellerId". (sync after this).
+
+//now product has this association method:
+
+blender.setSeller(user);
+
+
+//AHA moment: Pivot tables are what solve many to many relationships. (as in a table that has 2 or more ID columns that are foreign keys for other tables)
+
+
+
+
+
+
+
+
+
+

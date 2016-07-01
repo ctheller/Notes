@@ -1,0 +1,53 @@
+DOM: document object model
+	*all elements in a tree
+
+Client-side:
+	*as opposed to server-side
+	*Javascript executed in the browser
+	*Don't have require, don't have built-in modules.
+	*DO have XMLHTTPrequext
+	*Has the DOM
+
+Selectors:
+	*methods on the DOM
+	*like document.query...
+
+Front-End Applications:
+	Whole point is so user can interface with the server.
+	Manipulating the DOM based on events and interactivity. ("event-driven design").
+
+*Front end Javascript is a file served to the browser (does NOT have access to things on the server)*
+
+Cross-browser concerns:
+
+	*getting classes of an element:
+		bunch of different functions for doing so.
+	*LOTS of examples like this.
+
+	THE POINT:
+
+	jQUERY is the solution. It abstracts out the differences for all the different browsers and supports them all.
+	It's written in Javascript but it's so beloved that many people think it's its own seperate thing.
+
+jQuery Selectors:
+
+$('h1')
+$('#my-heading')
+$('h1 span')
+
+$('author-profile').children(); <-- gives you just the direct children.
+$('author-profile').find('button'); <-- gives you ALL the buttons.
+$('.genre').siblings;
+
+$('.titles li'); <-- gives you all the li within a class of titles.
+
+CACHE THINGS TO AVOID EXTRA DOM TRAVERSAL.
+
+var listItems = $(li);
+
+HOWEVER, adding new items or subtracting them means they're not in the variable (duh).
+
+
+
+
+

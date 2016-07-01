@@ -1,0 +1,47 @@
+Immutable Data Structures: (git is example)
+
+*State cannot be modified after creation.
+*Primitive types are immutable: (numbers, strings, booleans....not arrays- arrays are mutable)
+
+Why be immutable?
+	-predictable state
+	-potentially easier to debug
+	-lends itself to functional style
+	-physical access to history of state changes
+	-gain the ability to treat a collection of data like a value
+
+Pure and Impure Functions:
+	Pure:
+		-always returns the same value for the same set of imputs
+		-no side-effects
+	Impure:
+		-mutating the original object is example
+
+But what about...??
+	-performance and memory?
+		-structural sharing helps: re-use existing nodes, don't just copy/paste all the time
+	-some dependecy on garbage collection in your environment
+
+(Updating the DOM is a really expensive process).
+
+Angular is two-way. Reach is one-way. 
+
+
+____________________________________________________________________________________________________________________________________________
+GIT:
+
+* data is never destroyed - you can always get it back.
+* wouldn't that get out of hand? Acccccctually because it's a graph/tree:
+	-each commit references a tree and its parent
+	-each tree references the files in your project
+	-uses sharing.
+
+Content Addressable:
+	-Git 'objects' are identified with a hash of its contents
+	-objects that have the same content will have the same hash
+	-collision is HIGHLY unlikely
+SHA1 Algorithm:
+	-"secure hashing algorithm 1"
+	-the primary hashing algorithm used by git
+	-exposed in Node via the crypto module
+	-will probably go out of circulation for serious cryptography needs very soon. (it's kind of been solved)

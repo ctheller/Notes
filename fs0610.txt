@@ -1,0 +1,13 @@
+//bind doesn't invoke, just method that sets fn context
+
+var Person = function(){this.sayName = function() {return this.name;}; this.name = "chris"};
+
+person = new Person();
+
+y = person.sayName.bind({name: "Joe"});
+
+y(); //"Joe"
+
+y.call({name:'Nancy'}); //still "Joe"
+
+webElement.addEventListener('click', person.sayName.bind(person))

@@ -1,0 +1,4 @@
+promise.spread(function(){});
+
+//.spread is going to take the result, 
+//and if it's an array it's going to split it into separate arguments.

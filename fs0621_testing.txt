@@ -1,0 +1,58 @@
+Test-Driven Development:
+
+*Write your automated unit tests BEFORE you write your implementation code.
+*refactorable.
+
+1.Add
+2.Run
+3.Little Change
+4.Run Test
+5.Add Test
+
+The "Joel Test":
+Half of the 12 things that he lists as required for a company are testing related.
+
+ASSERTIONS:
+
+function assert (result){
+	if (!result){
+	throw new Error("a test failed");
+	}
+}
+
+Isolate tests: don't make them dependent on other tests!
+
+Mocha * handles descriptions (use Sinon.js for spies in Mocha/Chai)
+&
+Chai * handles assertions
+
+OR
+
+Jasmine * contains wide array of fn-ality right out of the box (assertions and spies).
+
+
+
+Can stub out/change helper functions to exercise more control (for example setting Math.random to always return .5)
+
+To prevent tests from blocking eachother:
+
+
+var supertest = require('supertest');
+var app = require('path/to/your/express/app.js');
+var agent = supertest(app);  											//fake client for testing. So we aren't touching the actual production side.
+describe('server', function(){
+	it('responds with 404 if route doesn't exist', function(done){
+	agent.get('./blahblahblah').expect(404, done)
+	})
+})
+
+//done let's use complete the test without blocking future tests.
+
+
+Spies: Functional wrapper that replaces a function and tells you how many times it's been called.
+Stubs: Spies + ability to return preset "canned" values.
+Mock: Stubs + expectations about how it will be used.
+
+
+
+

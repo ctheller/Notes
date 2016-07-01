@@ -1,0 +1,36 @@
+images default to display: inline-block
+and by default they will always be as wide as the image. to change this: img {width:100%;}. They also default to maintaining aspect ratio.
+
+(Auto margins don't work on inline-block elements. A stupid thing you must remember)
+
+clearfix:
+
+(.col-lg-4 nested in .row)
+
+.col-lg-4 {
+	float: left;
+	width: 33%;
+}
+
+.row:after {
+	content: '';
+	display: table;
+	clear: both;       <-- like opposite of floating. Clear me away from anything beside me.
+}
+
+@mixin clearfix {
+	&:after {
+		content: '';
+		display: table;
+		clear: both; 
+	}
+}
+
+
+now we can use it for any
+.section, .container, .row {
+	@include clearfix;
+}
+
+
+Always use box-sizing: border-box (at least almost always)

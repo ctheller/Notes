@@ -1,0 +1,31 @@
+var sum = function (){
+  output = 0;
+  for (var elem in arguments){
+    output+=(arguments[elem]);
+  }
+return output;
+}
+
+console.log(sum(1,2,3,4,5));
+
+var sumBetter = function(){
+  var nums = Array.prototype.slice.call(arguments);
+  var output = 0;
+  nums.forEach(function (n){
+    output+= n;
+    });
+  return output;
+}
+
+console.log(sumBetter(1,2,3,4,5));
+
+var nums = [1,2,3,4,5,6,2,4];
+
+
+//null because not using context (not using "this"). 
+//Sum is just expecting a list of arguments, not a 
+//single array argument. So apply fixes this, since 
+//apply accepts the arguments as an array. Sum will 
+//now be invoked with each of these arguments separately.
+//(This sum function wouldn't work on "nums" as written without "apply")
+sum.apply(null, nums);

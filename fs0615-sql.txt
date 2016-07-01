@@ -1,0 +1,50 @@
+Database: persists information and makes it accessible (retrievable by code).
+* Organized
+* Queryable
+* Mangeable
+
+DBMS: database management systems
+	_one layer and store to access data
+	_good for non-technical people to access data
+
+RDBMS (relational):
+>data stored in relations (aka tables)
+>SQL is how we interact with those tables.
+>multi-user multi-threaded
+>Programmers choose where these queries return, but not how they're made/executed. 
+
+DFNs:
+
+Database is collection of tables
+Table is collection of columns
+Duplicate rows not allowed
+Rows often have a primary key (ID)
+Schema: table's blueprint for data shape/format
+SQL: used to create/read/update/delete (CRUD) data from database.
+
+Pivot table: table that links up other tables using their primary keys. 
+Foreign Key: a key that relates to the Primary Key of a different table.
+
+
+//
+
+
+One table that has students, a table for schools, and a pivot table (enrollment). Interesting query: find ALL students from Springfield Elementary:
+	Join Enrollment Table on StudentID, now join School table with enrollment table based on SchoolID.
+
+	SELECT *
+	FROM
+		Student 
+			INNER JOIN Enrollment ON Student.ID = Enrollment.StudentID     //for every row in table that you're joining. If they match
+			INNER JOIN School ON Enrollment.SchoolID = School.id
+	WHERE Enrollment.SchoolID = 1
+
+//
+
+Types of Joins:
+
+INNER JOIN : Just intersection of table A and B
+OUTER JOIN : everything from both tables A and B but where they don't overlap, set the extras to NULL.
+LEFT JOIN: includes everything from A and the overlap of B.
+RIGHT JOIN: includes overlap from A and everything from B.
+

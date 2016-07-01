@@ -1,0 +1,111 @@
+Promises are Objects:
+
+State:
+-Starts as pending (data usually either undefined or null...but also meaningless)
+-Goes to either "fulfilled" (gets value) or "rejected" (gets reason) (this is called a promise "settling")
+Information:
+-value or a reason
+
+*These are characteristics that we do NOT access directly.
+
+...we access the value through '.then' (ALWAYS)
+
+***************Constructor-Style promise generation in ES6:***********************************
+
+var promiseForTxt = new Promise( function(resolve,reject){
+	fs.readFile('log.txt', function(err, text){
+		if (err) reject( err );
+		else resolve( text );					//attempt fulfillment. 
+	});
+});
+
+
+//elsewhere
+promiseForTxt.then(someSuccessHandler, someErrorHandler);
+
+**********************************************************************************************
+
+
+Deferral-Style promise Generation (this is an older style):
+-Easy for people to abuse this (because they had access to "resolve" and "reject")
+
+**********************************************************************************************
+
+"then" returns a NEW PROMISE.
+
+promiseB = promiseA.then([successHandler],[ErrorHandler]);    //promiseB comes out IMMEDIATELY. Synchronously.
+
+.catch(handleErr) is equivalent to .then(null, handleErr);
+
+//promise0 fulfills with "hello"
+
+promise0
+	.then()
+	.then()
+	.then()
+	.then()
+	.then(console.log);
+
+-fulfillment bubbled and resolves to "hello."
+
+//promise0 fulfills with "hello"
+
+promise0
+	.then()
+	.then(null, warnUser)
+	.then(null, null)
+	.then()
+	.then(console.log);
+
+-fulfillment bubbled and resolves to "hello." Error handles don't matter. Fulfill values call the first available success handler.
+
+
+//promise0 rejected with "sorry"
+
+promise0
+	.then()
+	.then()
+	.then()
+	.then()
+	.then(null, console.log);
+
+-rejection bubbling. results in "sorry."
+
+//promise0 rejected with "sorry"
+
+promise0
+	.then(console.log)
+	.then()
+	.then(null, null)
+	.then()
+	.then(null, logYell);
+
+-rejection bubbling. results in calling logYell.
+
+
+promiseForUser
+.then(function(user){
+	var promiseForMessages = DBLibrary.fetchMessagesForUser(user.id);     
+	return promiseForMessages;
+})
+.then(function(messages){
+	return DBLibrary.fetchCommentsForMessages(messages[0].id);
+})
+.then(function(comments){
+	.........
+})
+
+
+If a success handler returns a PROMISE, I'd like the next ".then" to have that value.
+
+****When you have "return PROMISE" inside a .then, it returns a promise BUT does NOT call the next ".then" until it's resolved.******
+
+The point of error handling is to fix it and go back to the successful chain. 
+
+Danger: Silent Errors!!!
+
+	*Always have a catch (console.log the error).
+	*Must end a promise chain in a .done or .finally which do not export any new promise. Any errors will be thrown as normal. 
+
+Can use native promises or bluebird (or q or something), but bluebird is faster because it's optimized and written in a lower-level language than JS. 
+

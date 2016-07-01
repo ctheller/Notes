@@ -1,0 +1,12 @@
+Postgres: a DBMS- Database Management System
+
+DB is static files. Actual binary data. 
+
+Postgres will sensibly read and write. Brain of the operation. 
+
+Shell (psql) asks DB for stuff, DB produces info and gives it back. 
+This Postgres process is a TCP/IP server. Uses the same communication of HTTP over the internet, but uses a different protocol (The Postgres protocol).
+
+Database Driver (pg)(this is javascript (a module): some code that knows how to talk to the Postgres process through TCP/IP and on the other end exposes an API (a bunch of functions or calls) that that environment can use to communicate. PG is a client to the Postgres server. Gives raw table data to the PG driver which then converts it to beautiful objects we can work with. 
+
+PSQL in shell (terminal) lets us also talk to Postgres without having to do it in javascript with our driver. 

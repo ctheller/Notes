@@ -1,0 +1,22 @@
+you can add as an option:
+
+defaultScope :{
+	include: [Place]
+}
+
+to a model to have it automatically include it's place location in any db look-up of that model.
+
+Don't use .done and .fail (jQuery promises suck. It's better to do .then() than anything else in an AJAX request. btw, this is a new thing being able to use .then() after an AJAX request!).
+
+HOWEVER, don't use catch(). You can't (just doesn't work yet). Use then(null, ....);
+
+You can't send functions along with JSON. It's NOT Javascript.
+
+Mindset: pretend the server is in Norway... the front and back -ends are TWO completely separate processes.
+
+With "put" and "post" AJAX requests, just include things that you can in req.body instead of req.params.
+
+Don't forget Debugger can be better than console.log!
+
+Sometimes you need to re-query for the included information of brand-new relationships (See solution where we 'PUT' a hotel on day).
+
